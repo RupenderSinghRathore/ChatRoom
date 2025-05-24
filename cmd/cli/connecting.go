@@ -12,7 +12,6 @@ import (
 
 func connecting() error {
 	url := url.URL{Scheme: "ws", Host: "localhost:8080", Path: "/connect"}
-	fmt.Println("Url:", url.String())
 	c, _, err := websocket.DefaultDialer.Dial(url.String(), nil)
 	if err != nil {
 		return err
@@ -24,7 +23,12 @@ func connecting() error {
 		for {
 			_, message, err := c.ReadMessage()
 			if err != nil {
-				log.Fatal("err:", err)
+				if websocket.IsCloseError(err, websocket.CloseNormalClosure) {
+					fmt.Println("bye..")
+					os.Exit(0)
+				} else {
+					log.Fatal("err:", err)
+				}
 			}
 			fmt.Printf("Bro said: %v", string(message))
 		}
