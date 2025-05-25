@@ -10,9 +10,11 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-func connecting() error {
+func connecting(user string) error {
 	url := url.URL{Scheme: "ws", Host: "localhost:8080", Path: "/connect"}
-	c, _, err := websocket.DefaultDialer.Dial(url.String(), nil)
+	header := make(map[string][]string)
+	header["user"] = []string{user}
+	c, _, err := websocket.DefaultDialer.Dial(url.String(), header)
 	if err != nil {
 		return err
 	}

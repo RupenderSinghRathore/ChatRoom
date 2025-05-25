@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"net/http"
 	"time"
 
@@ -8,6 +9,9 @@ import (
 )
 
 func (s serverStruct) connect(w http.ResponseWriter, r *http.Request) {
+	user := r.Header["User"][0]
+	fmt.Println("user:", user)
+	// fmt.Printf("Header: %+v", r.Header)
 	conn, err := s.upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		http.Error(w, "Couldn't upgrade to websocket", http.StatusInternalServerError)

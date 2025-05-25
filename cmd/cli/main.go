@@ -7,13 +7,14 @@ import (
 )
 
 func main() {
-	arg, port := ParseClArgs()
+	arg, port, user := ParseClArgs()
+
 	switch arg {
 	case "start":
 		err := server.Start(port)
 		log.Fatal(err)
 	case "connect":
-		err := connecting()
+		err := connecting(user)
 		if err != nil {
 			log.Fatal(err)
 		}
