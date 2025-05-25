@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/RupenderSinghRathore/ServerChatRoom/internal/server"
+	"github.com/RupenderSinghRathore/ChatRoom/internal/server"
 )
 
 func main() {
