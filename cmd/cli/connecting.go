@@ -32,7 +32,7 @@ func connecting(user string) error {
 					log.Fatal("err:", err)
 				}
 			}
-			fmt.Printf("Bro said: %v", string(message))
+			fmt.Printf("$$ %v\n> ", string(message))
 		}
 	}()
 
