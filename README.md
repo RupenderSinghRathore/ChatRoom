@@ -26,7 +26,7 @@ A simple command-line interface (CLI) chat room application built with Go, utili
 
 1.  **Clone the repository:**
     ```bash
-git clone https://github.com/RupenderSinghRathore/ChatRoom.git
+    git clone https://github.com/RupenderSinghRathore/ChatRoom.git
     ```
 
 2.  **Navigate to the project directory:**
