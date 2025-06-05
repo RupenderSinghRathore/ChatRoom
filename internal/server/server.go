@@ -10,6 +10,7 @@ import (
 )
 
 type serverStruct struct {
+	clients  map[*websocket.Conn]bool
 	logger   *slog.Logger
 	serve    *http.Server
 	upgrader websocket.Upgrader
@@ -17,7 +18,6 @@ type serverStruct struct {
 
 var (
 	mutex    sync.Mutex
-	clients  = make(map[*websocket.Conn]bool)
 	messChan = make(chan messStruct)
 )
 
@@ -29,6 +29,7 @@ func Start(port string) error {
 			WriteBufferSize: 1024,
 			ReadBufferSize:  1024,
 		},
+		clients: make(map[*websocket.Conn]bool),
 	}
 
 	go server.broadcast()

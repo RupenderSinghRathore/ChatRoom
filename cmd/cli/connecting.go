@@ -11,7 +11,7 @@ import (
 )
 
 func connecting(user string) error {
-	url := url.URL{Scheme: "ws", Host: "localhost:8080", Path: "/connect"}
+	url := url.URL{Scheme: "ws", Host: fmt.Sprintf("localhost%s", port), Path: "/connect"}
 	header := make(map[string][]string)
 	header["user"] = []string{user}
 	c, _, err := websocket.DefaultDialer.Dial(url.String(), header)
@@ -19,6 +19,8 @@ func connecting(user string) error {
 		return err
 	}
 	defer c.Close()
+
+	fmt.Printf("%s, wellcome to the ChatRoom", user)
 
 	go func() {
 

@@ -15,7 +15,7 @@ func (s serverStruct) connect(w http.ResponseWriter, r *http.Request) {
 		s.logger.Error(err.Error())
 	}
 	mutex.Lock()
-	clients[conn] = true
+	s.clients[conn] = true
 	mutex.Unlock()
 	s.logger.Info("conn added")
 	for {
@@ -35,7 +35,7 @@ func (s serverStruct) connect(w http.ResponseWriter, r *http.Request) {
 
 func (s serverStruct) closeConn(conn *websocket.Conn, code int, reason string) {
 	mutex.Lock()
-	delete(clients, conn)
+	delete(s.clients, conn)
 	mutex.Unlock()
 
 	msg := websocket.FormatCloseMessage(code, reason)

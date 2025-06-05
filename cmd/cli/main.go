@@ -6,8 +6,9 @@ import (
 	"github.com/RupenderSinghRathore/ChatRoom/internal/server"
 )
 
+var arg, port, user = ParseClArgs()
+
 func main() {
-	arg, port, user := ParseClArgs()
 
 	switch arg {
 	case "start":
