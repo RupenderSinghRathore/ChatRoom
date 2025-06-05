@@ -20,7 +20,7 @@ func connecting(user string) error {
 	}
 	defer c.Close()
 
-	fmt.Printf("%s, wellcome to the ChatRoom", user)
+	fmt.Printf("%s, wellcome to the ChatRoom\n", user)
 
 	go func() {
 
