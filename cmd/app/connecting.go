@@ -11,7 +11,11 @@ import (
 )
 
 func connecting(user string) error {
-	url := url.URL{Scheme: "ws", Host: fmt.Sprintf("localhost%s", port), Path: "/connect"}
+	host := os.Getenv("RAILWAY_PUBLIC_DOMAIN")
+	if host == "" {
+		host = "localhost:8080"
+	}
+	url := url.URL{Scheme: "ws", Host: host, Path: "/connect"}
 	header := make(map[string][]string)
 	header["user"] = []string{user}
 	c, _, err := websocket.DefaultDialer.Dial(url.String(), header)

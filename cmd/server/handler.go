@@ -1,4 +1,4 @@
-package server
+package main
 
 import (
 	"net/http"
@@ -24,7 +24,7 @@ func (s serverStruct) connect(w http.ResponseWriter, r *http.Request) {
 			s.closeConn(conn, websocket.CloseAbnormalClosure, err.Error())
 			return
 		}
-		if string(message) == "\\exit" {
+		if string(message) == "\\q" {
 			s.closeConn(conn, websocket.CloseNormalClosure, "bye..")
 			return
 		}
@@ -51,7 +51,7 @@ func (s serverStruct) closeConn(conn *websocket.Conn, code int, reason string) {
 			if websocket.IsCloseError(err, websocket.CloseNormalClosure) {
 				s.logger.Info("Recieved close from peer")
 			} else {
-				s.logger.Error(err.Error())
+				s.logger.Warn(err.Error())
 			}
 			break
 		}

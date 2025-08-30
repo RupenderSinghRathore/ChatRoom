@@ -1,4 +1,4 @@
-package server
+package main
 
 import (
 	"log/slog"
@@ -21,7 +21,7 @@ var (
 	messChan = make(chan messStruct)
 )
 
-func Start(port string) error {
+func main() {
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 	server := serverStruct{
 		logger: logger,
@@ -36,7 +36,11 @@ func Start(port string) error {
 
 	mux := server.newRouter()
 
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 	logger.Info("Starting started", "port", port)
-	err := http.ListenAndServe(port, mux)
-	return err
+	err := http.ListenAndServe("0.0.0.0:"+port, mux)
+	server.logger.Error(err.Error())
 }

@@ -15,12 +15,15 @@ func ParseClArgs() (string, string, string) {
 		log.Fatalf("$$ Expected args 'start' or 'connect' \"%v\" given $$", arg)
 	}
 
-	port := flag.String("port", ":8080", "Give the port to start server")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 	user := flag.String("user", "Anonymous", "Username")
 	err := flag.CommandLine.Parse(os.Args[2:])
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	return arg, *port, *user
+	return arg, port, *user
 }
